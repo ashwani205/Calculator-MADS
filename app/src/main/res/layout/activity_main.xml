@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_shade_3"
+        tools:context=".view.MainActivity">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/idTVSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black_shade_3"
+            android:padding="10dp"
+            android:paddingTop="30dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/idTVPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idTVSecondary"
+            android:background="@color/black_shade_3"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="50sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idTVSecondary" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black_shade_1"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:background="@color/black_shade_1"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="5">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="4">
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b_clear"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/red"
+                                    android:padding="6dp"
+                                    android:text="@string/clear"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b_history"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/history"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b_back"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/back"
+                                    android:textColor="@color/yellow"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b_div"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/div"
+                                    android:textColor="@color/yellow"
+                                    android:textSize="@dimen/text_size" />
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="4">
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b7"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/seven"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b8"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/eight"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b9"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/nine"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b_mul"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/mul"
+                                    android:textColor="@color/yellow"
+                                    android:textSize="@dimen/text_size" />
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="4">
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/four"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/five"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/six"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b_minus"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/minus"
+                                    android:textColor="@color/yellow"
+                                    android:textSize="@dimen/text_size" />
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="4">
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/one"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/two"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/three"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b_plus"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/plus"
+                                    android:textColor="@color/yellow"
+                                    android:textSize="@dimen/text_size" />
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="3">
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b00"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/double_zero"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b0"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/black_shade_2"
+                                    android:padding="6dp"
+                                    android:text="@string/zero"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/b_equal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="3dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/green"
+                                    android:padding="6dp"
+                                    android:text="@string/equal"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size" />
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/main_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
