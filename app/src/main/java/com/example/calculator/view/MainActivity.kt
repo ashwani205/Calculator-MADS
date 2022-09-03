@@ -1,22 +1,110 @@
 package com.example.calculator.view
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.DataBindingUtil
 import com.example.calculator.R
 import com.example.calculator.databinding.ActivityMainBinding
 import com.example.calculator.model.History
+import com.example.calculator.utils.MyPreference
 import com.google.android.material.snackbar.Snackbar
-/*AIzaSyDfyWTl0Xryj1Elw8pL6zumzTfRJFcShOk*/
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import java.util.*
+
 class MainActivity : AppCompatActivity() {
+
     private lateinit var mBinding: ActivityMainBinding
+    private lateinit var toggle: ActionBarDrawerToggle
     private var text: StringBuilder = StringBuilder()
     private var history: ArrayList<History> = ArrayList()
     private var saveAtIndex = 0
+    private lateinit var databaseReference: DatabaseReference
+    private var isNowLoggedIn = false
+    private var firebaseHistoryListSize=0
+    private var updateFirebaseListNo=0
+    private var isAppOpened =true
+    private var userName: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        supportActionBar?.hide()
+        setNavigationDrawer()
+        mBinding.apply {
+            toggle = ActionBarDrawerToggle(
+                this@MainActivity,
+                drawerLayout,
+                R.string.open,
+                R.string.close
+            )
+            drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            navView.setNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.first_item -> {
+                        drawerLayout.closeDrawers()
+                        openHistoryFragment(history)
+                    }
+                }
+                true
+            }
+        }
+
+        mBinding.signOutBtn.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Exit")
+            builder.setMessage("Do you really want to sign out")
+            builder.setPositiveButton("yes") { _, _ ->
+                mBinding.progressBar.visibility = View.VISIBLE
+                if (MyPreference.readPrefString(this, "loginFrom").equals("google")) {
+                    MyPreference.clear(this)
+                    FirebaseAuth.getInstance().signOut()
+                } else {
+                    MyPreference.clear(this)
+                }
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+            builder.setNegativeButton("N0") { dialog, _ ->
+                dialog.dismiss()
+            }
+            builder.show()
+        }
+
+        userName = MyPreference.readPrefString(this, "userName") ?: ""
+        isNowLoggedIn = intent.getBooleanExtra("isNowLoggedIn", false)
+        databaseReference = FirebaseDatabase.getInstance().getReference("history")
+            databaseReference.child(userName).addValueEventListener(object : ValueEventListener {
+                var historyList = ArrayList<History>()
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach { dataSnapshot ->
+                        val message = dataSnapshot.getValue(History::class.java)
+                        message?.let { historyList.add(it) }
+                    }
+                    if(isAppOpened) {
+                        firebaseHistoryListSize = historyList.size
+                        getLatestHistoryFromDB(historyList)
+                        isAppOpened = false
+                    }
+                    if (isNowLoggedIn) {
+                        if(historyList.size>0) {
+                            openHistoryFragment(historyList)
+                        }
+                        isNowLoggedIn = false
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+
+            })
         mBinding.b1.setOnClickListener {
             setPrimaryText("1")
         }
@@ -55,14 +143,7 @@ class MainActivity : AppCompatActivity() {
             mBinding.idTVPrimary.text = ""
         }
         mBinding.bHistory.setOnClickListener {
-            val fragment = HistoryFragment()
-            val bundle = Bundle()
-            bundle.putParcelableArrayList("history", history)
-            fragment.arguments = bundle
-            val ft = supportFragmentManager.beginTransaction()
-            ft.replace(R.id.main_container, fragment)
-            ft.addToBackStack(null)
-            ft.commit()
+            openHistoryFragment(history)
         }
         mBinding.bBack.setOnClickListener {
             val value = mBinding.idTVPrimary.text.toString()
@@ -164,16 +245,40 @@ class MainActivity : AppCompatActivity() {
                 ) + operators.substring(indexOfOperator + 1)
             }
         }
+        val historyData =
+            History(input = mBinding.idTVPrimary.text.toString(), result = operands[0], time = getTime())
+        if(firebaseHistoryListSize<10) {
+            addDataToFirebase(historyData)
+            firebaseHistoryListSize++
+        }else{
+            // code for replacing data at index
+            if(updateFirebaseListNo>=10)
+                updateFirebaseListNo=0
+            replaceDataToFirebase(historyData)
+            updateFirebaseListNo++
+        }
+
         if (history.size < 10)
-            history.add(History(input = mBinding.idTVPrimary.text.toString(), result = operands[0]))
+            history.add(historyData)
         else {
-            history[saveAtIndex] =
-                History(input = mBinding.idTVPrimary.text.toString(), result = operands[0])
+            history[saveAtIndex] = historyData
             saveAtIndex++
             if (saveAtIndex >= 10)
                 saveAtIndex = 0
         }
         return operands[0]
+    }
+
+    private fun getTime(): Long{
+       return Calendar.getInstance().timeInMillis
+    }
+    private fun addDataToFirebase(historyData: History) {
+//        databaseReference.child(userName).push().setValue(historyData)
+        databaseReference.child(userName).child(firebaseHistoryListSize.toString()).setValue(historyData)
+    }
+
+    private fun replaceDataToFirebase(historyData: History) {
+        databaseReference.child(userName).child(updateFirebaseListNo.toString()).setValue(historyData) //updateChildren(mutableMapOf("0",historyData))
     }
 
     private fun addOperator(operator: Char) {
@@ -237,5 +342,38 @@ class MainActivity : AppCompatActivity() {
             text.append(result)
             result.toString()
         }
+    }
+
+    private fun openHistoryFragment(historyList: ArrayList<History>) {
+        val fragment = HistoryFragment()
+        val bundle = Bundle()
+        bundle.putParcelableArrayList("history", historyList)
+        fragment.arguments = bundle
+        val ft = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.main_container, fragment)
+        ft.addToBackStack(null)
+        ft.commit()
+    }
+
+    private fun getLatestHistoryFromDB(historyList: ArrayList<History>){
+        val maxTime = historyList[0].time
+        historyList.forEachIndexed { index, history ->
+            if (maxTime != null) {
+                if(maxTime < (history.time ?: 0)){
+                    updateFirebaseListNo = index
+                }
+            }
+        }
+        updateFirebaseListNo++
+    }
+    @SuppressLint("SetTextI18n")
+    private fun setNavigationDrawer() {
+        mBinding.navView.getHeaderView(0).findViewById<AppCompatTextView>(R.id.header_title).text =
+            "Welcome\n${userName}"
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) true
+        return super.onOptionsItemSelected(item)
     }
 }

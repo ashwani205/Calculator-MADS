@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.calculator.adapter.HistoryAdapter
@@ -37,6 +38,7 @@ class HistoryFragment : Fragment() {
         mBinding.back.setOnClickListener {
             activity?.onBackPressed()
         }
+        (activity as AppCompatActivity).supportActionBar?.hide()
         setHistoryAdapter()
     }
 
@@ -45,5 +47,10 @@ class HistoryFragment : Fragment() {
         val adapter = HistoryAdapter()
         mBinding.historyRb.adapter = adapter
         adapter.submitList(history)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 }

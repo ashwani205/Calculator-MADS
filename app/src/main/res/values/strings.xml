@@ -31,4 +31,11 @@
     <string name="user_name_empty">Please Enter User Name</string>
     <string name="password_empty">Please Enter Password</string>
     <string name="invalid_credentials">Invalid Credentials</string>
+    <string name="or_login_from">Or login from</string>
+    <string name="email">Email</string>
+    <string name="log_out">Log out</string>
+    <string name="welcome">welcome</string>
+    <string name="users">Users</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
 </resources>

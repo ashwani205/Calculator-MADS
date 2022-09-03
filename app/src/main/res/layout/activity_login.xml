@@ -27,6 +27,20 @@
                     android:hint="@string/user_name"
                     android:text="Admin" />
             </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/user_name_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:text="admin@gmail.com" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_layout"
@@ -34,7 +48,7 @@
                 android:layout_height="wrap_content"
                 app:passwordToggleEnabled="true"
                 android:paddingBottom="16dp"
-                app:layout_constraintTop_toBottomOf="@id/user_name_layout">
+                app:layout_constraintTop_toBottomOf="@id/email_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
@@ -54,6 +68,39 @@
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/password_layout" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/either_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:padding="16dp"
+                android:text="@string/or_login_from"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_button" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/social_login_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/either_options">
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:id="@+id/google_sign_in_btn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/google_logo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <ProgressBar
                 android:id="@+id/progress_bar"
