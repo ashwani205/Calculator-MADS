@@ -141,6 +141,7 @@ class MainActivity : AppCompatActivity() {
         mBinding.bClear.setOnClickListener {
             text.clear()
             mBinding.idTVPrimary.text = ""
+            mBinding.idTVSecondary.text=""
         }
         mBinding.bHistory.setOnClickListener {
             openHistoryFragment(history)
